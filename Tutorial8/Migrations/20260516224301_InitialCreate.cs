@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Tutorial8.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -107,6 +109,63 @@ namespace Tutorial8.Migrations
                         principalTable: "PCs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ComponentManufacturers",
+                columns: new[] { "Id", "Abbreviation", "FoundationDate", "FullName" },
+                values: new object[,]
+                {
+                    { 1, "INTEL", new DateOnly(1968, 1, 1), "Integrated Electronics" },
+                    { 2, "NV", new DateOnly(1993, 1, 1), "NVIDIA Corporation" },
+                    { 3, "PM", new DateOnly(1985, 1, 1), "Patriot Memory" },
+                    { 4, "AMD", new DateOnly(1969, 5, 1), "Advanced Micro Devices" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ComponentTypes",
+                columns: new[] { "Id", "Abbreviation", "Name" },
+                values: new object[,]
+                {
+                    { 1, "CPU", "Processor" },
+                    { 2, "GPU", "Graphics Card" },
+                    { 3, "RAM", "Memory" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PCs",
+                columns: new[] { "Id", "CreatedAt", "Name", "Stock", "Warranty", "Weight" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 5, 16, 8, 0, 0, 0, DateTimeKind.Unspecified), "Gaming Monster x99", 69, 36, 30.0 },
+                    { 2, new DateTime(2026, 5, 16, 8, 30, 0, 0, DateTimeKind.Unspecified), "Pro Office Mini", 666, 24, 3.0 },
+                    { 3, new DateTime(2026, 5, 16, 9, 0, 0, 0, DateTimeKind.Unspecified), "Budget Bargain 13", 1, 12, 9.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Components",
+                columns: new[] { "Code", "ComponentManufacturersId", "ComponentTypesId", "Description", "Name" },
+                values: new object[,]
+                {
+                    { "AMD0000001", 4, 1, "mini-core pocket processor", "AMD Ryzen 9 9999X" },
+                    { "INTEL00001", 1, 1, "16-core gaming processor", "Intel Core Ultra 99" },
+                    { "NVIDIA0001", 2, 2, "Bleeding-edge gaming graphics card", "GeForce RTX 5070" },
+                    { "VIPER00001", 3, 3, "DDR5 RAM module 64GB", "Viper Venom DDR5 64GB" },
+                    { "VIPER00002", 3, 3, "DDR5 RAM module 16GB", "Viper Venom DDR5 16GB" },
+                    { "VIPER00003", 3, 3, "DDR4 RAM module 8GB", "Viper Steel DDR4 8GB" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PCComponents",
+                columns: new[] { "ComponentCode", "PCId", "Amount" },
+                values: new object[,]
+                {
+                    { "INTEL00001", 1, 1 },
+                    { "NVIDIA0001", 1, 1 },
+                    { "VIPER00001", 1, 6 },
+                    { "AMD0000001", 2, 1 },
+                    { "VIPER00002", 2, 1 },
+                    { "VIPER00003", 3, 3 }
                 });
 
             migrationBuilder.CreateIndex(

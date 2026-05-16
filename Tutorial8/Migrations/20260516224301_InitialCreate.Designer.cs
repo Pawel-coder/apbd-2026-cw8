@@ -12,8 +12,8 @@ using Tutorial8.Data;
 namespace Tutorial8.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260516200721_Init")]
-    partial class Init
+    [Migration("20260516224301_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,56 @@ namespace Tutorial8.Migrations
                     b.HasIndex("ComponentTypesId");
 
                     b.ToTable("Components");
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "INTEL00001",
+                            ComponentManufacturersId = 1,
+                            ComponentTypesId = 1,
+                            Description = "16-core gaming processor",
+                            Name = "Intel Core Ultra 99"
+                        },
+                        new
+                        {
+                            Code = "NVIDIA0001",
+                            ComponentManufacturersId = 2,
+                            ComponentTypesId = 2,
+                            Description = "Bleeding-edge gaming graphics card",
+                            Name = "GeForce RTX 5070"
+                        },
+                        new
+                        {
+                            Code = "VIPER00001",
+                            ComponentManufacturersId = 3,
+                            ComponentTypesId = 3,
+                            Description = "DDR5 RAM module 64GB",
+                            Name = "Viper Venom DDR5 64GB"
+                        },
+                        new
+                        {
+                            Code = "AMD0000001",
+                            ComponentManufacturersId = 4,
+                            ComponentTypesId = 1,
+                            Description = "mini-core pocket processor",
+                            Name = "AMD Ryzen 9 9999X"
+                        },
+                        new
+                        {
+                            Code = "VIPER00002",
+                            ComponentManufacturersId = 3,
+                            ComponentTypesId = 3,
+                            Description = "DDR5 RAM module 16GB",
+                            Name = "Viper Venom DDR5 16GB"
+                        },
+                        new
+                        {
+                            Code = "VIPER00003",
+                            ComponentManufacturersId = 3,
+                            ComponentTypesId = 3,
+                            Description = "DDR4 RAM module 8GB",
+                            Name = "Viper Steel DDR4 8GB"
+                        });
                 });
 
             modelBuilder.Entity("Tutorial8.Entities.ComponentManufacturer", b =>
@@ -78,6 +128,36 @@ namespace Tutorial8.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ComponentManufacturers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abbreviation = "INTEL",
+                            FoundationDate = new DateOnly(1968, 1, 1),
+                            FullName = "Integrated Electronics"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abbreviation = "NV",
+                            FoundationDate = new DateOnly(1993, 1, 1),
+                            FullName = "NVIDIA Corporation"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abbreviation = "PM",
+                            FoundationDate = new DateOnly(1985, 1, 1),
+                            FullName = "Patriot Memory"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abbreviation = "AMD",
+                            FoundationDate = new DateOnly(1969, 5, 1),
+                            FullName = "Advanced Micro Devices"
+                        });
                 });
 
             modelBuilder.Entity("Tutorial8.Entities.ComponentType", b =>
@@ -101,6 +181,26 @@ namespace Tutorial8.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ComponentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abbreviation = "CPU",
+                            Name = "Processor"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abbreviation = "GPU",
+                            Name = "Graphics Card"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abbreviation = "RAM",
+                            Name = "Memory"
+                        });
                 });
 
             modelBuilder.Entity("Tutorial8.Entities.PC", b =>
@@ -131,6 +231,35 @@ namespace Tutorial8.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PCs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 5, 16, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gaming Monster x99",
+                            Stock = 69,
+                            Warranty = 36,
+                            Weight = 30.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2026, 5, 16, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Pro Office Mini",
+                            Stock = 666,
+                            Warranty = 24,
+                            Weight = 3.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2026, 5, 16, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Budget Bargain 13",
+                            Stock = 1,
+                            Warranty = 12,
+                            Weight = 9.0
+                        });
                 });
 
             modelBuilder.Entity("Tutorial8.Entities.PCComponent", b =>
@@ -149,6 +278,44 @@ namespace Tutorial8.Migrations
                     b.HasIndex("ComponentCode");
 
                     b.ToTable("PCComponents");
+
+                    b.HasData(
+                        new
+                        {
+                            PCId = 1,
+                            ComponentCode = "INTEL00001",
+                            Amount = 1
+                        },
+                        new
+                        {
+                            PCId = 1,
+                            ComponentCode = "NVIDIA0001",
+                            Amount = 1
+                        },
+                        new
+                        {
+                            PCId = 1,
+                            ComponentCode = "VIPER00001",
+                            Amount = 6
+                        },
+                        new
+                        {
+                            PCId = 2,
+                            ComponentCode = "AMD0000001",
+                            Amount = 1
+                        },
+                        new
+                        {
+                            PCId = 2,
+                            ComponentCode = "VIPER00002",
+                            Amount = 1
+                        },
+                        new
+                        {
+                            PCId = 3,
+                            ComponentCode = "VIPER00003",
+                            Amount = 3
+                        });
                 });
 
             modelBuilder.Entity("Tutorial8.Entities.Component", b =>
